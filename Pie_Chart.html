@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Activity Chart</title>
+    <!-- Include the Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+</head>
+<style>
+    .container {
+        width: 800px;
+        height: 500px;
+        border: 1px solid grey;
+        box-shadow: 7px 7px 7px rgb(207, 205, 205), inset 7px 7px 7px rgb(226, 220, 220);
+    }
+
+    .listContainer {
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+    }
+
+    .listItem {
+        display: flex;
+        margin: 5px;
+    }
+
+    .boxSpan {
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .textContainer {
+        color: rgb(0, 0, 0);
+    }
+
+    .active {
+        position: absolute;
+        left: 265px;
+
+    }
+</style>
+
+<body>
+    <div class="container mt-5 py-5 is-flex is-justify-content-center is-align-items-center">
+        <canvas id="activityChart" width="240" height="50"></canvas>
+        <span class="active is-size-1 has-text-black">Active <br>Status</span>
+        <div id="legend-container"></div>
+    </div>
+
+    <script>
+        const getOrCreateLegendList = (chart, id) => {
+            const legendContainer = document.getElementById(id);
+            let listContainer = legendContainer.querySelector('ul');
+            if (!listContainer) {
+                listContainer = document.createElement('ul');
+                listContainer.className = 'listContainer';
+                legendContainer.appendChild(listContainer);
+            }
+            return listContainer;
+        }
+
+        // Activity data
+        var activityData = {
+            labels: ['Lightly Active', 'Fairly Active', 'Very Active', 'Sideactive'],
+            datasets: [{
+                data: [15, 3, 1.11, 83],
+                backgroundColor: ['rgba(255, 206, 86, 1)', 'rgba(173, 216, 230, 1)', 'rgba(255, 99, 132, 1)', 'rgba(70, 130, 180, 1)'],
+                borderColor: ['#ffce56', '#add8e6', '#ff6384', '#4682b4'],
+                borderWidth: 1,
+                hoverOffset: 20,
+            }]
+        };
+
+        var ctx = document.getElementById('activityChart').getContext('2d');
+        const htmlLegendPlugin = {
+            id: 'htmlLegend',
+            afterUpdate(chart, args, options) {
+                const ul = getOrCreateLegendList(chart, options.containerID);
+                while (ul.firstChild) {
+                    ul.firstChild.remove();
+                }
+                const items = chart.options.plugins.legend.labels.generateLabels(chart);
+                items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = 'listItem';
+
+                    const boxSpan = document.createElement('span');
+                    boxSpan.className = 'boxSpan';
+                    boxSpan.style.backgroundColor = item.fillStyle;
+                    boxSpan.style.borderColor = item.strokeStyle;
+
+                    const textContainer = document.createElement('p');
+                    textContainer.className = 'textContainer';
+                    textContainer.style.color = item.fontColor;
+
+                    const text = document.createTextNode(item.text);
+
+                    textContainer.appendChild(text);
+                    li.appendChild(boxSpan);
+                    li.appendChild(textContainer);
+                    ul.appendChild(li);
+                });
+            }
+        }
+
+        const config = {
+            type: 'doughnut',
+            data: activityData,
+            options: {
+                cutout: 180,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    htmlLegend: {
+                        containerID: 'legend-container'
+                    }
+                }
+            },
+            plugins: [htmlLegendPlugin]
+        };
+
+        var myChart = new Chart(ctx, config);
+    </script>
+</body>
+
+</html>

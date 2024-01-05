@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bulma Box Example</title>
+    <!-- Include the Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!-- Include Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<style>
+.box {
+    background: linear-gradient(to bottom, rgba(253, 90, 90, 0.5), #2c0000);
+}
+    .border{
+    width:140px;
+    height: 2px;
+    background-color: white;
+    color: rgb(133, 3, 3);
+    position: relative;
+    top: 30px;
+    right: 80px;
+}
+
+.border2{
+    top: 50px;
+    right: 90px;
+}
+.border span{
+    position: relative;
+    top: -13px;
+    right: 90px;
+}
+.border3{
+    transform: translate(130%);
+
+}
+.border4{
+    left: 260px;
+    top: -45px;
+}
+.ear{
+    position: relative;
+    left: 145px;
+}
+</style>
+
+<body>
+
+    <!-- Create a rectangle box with gradient background -->
+    <div class="is-flex is-flex-direction-column is-align-items-center is-justify-content-center has-background-grey">
+        <div class="has-background-danger mt-6 box mb-5">
+            <div class="border"> <span>Nick Name</span></div>
+            <div class=" px-6 mx-4 mt-3">
+                <button class="button is-rounded has-background-black is-white has-text-light has-text-weight-bold">
+                    Julia <span class="px-6"></span><span class="px-1"><i class="fas fa-fire"></i></span> 2
+                </button>
+            </div>
+            <div class="border border4 mt-5"> <span class="ear">Callories Burned</span></div>
+
+            <div class="border border2"> <span>Zone colour</span></div>
+            
+            <div class="has-text-white has-text-centered is-size-1 p-2 mt-3 has-text-weight-bold">92%</div>
+            <div class="border border4"> <span class="ear">% of max Effort</span></div>
+
+            <div class="border border2"> <span>Heart Rate</span></div>
+            <div class="is-flex" >
+                <div class="has-text-white is-flex is-align-items-center px-6 mt-5">
+                    <div class="columns is-vcentered">
+                        <div class="column is-narrow is-relative">
+                            <div class="heart-container">
+                                
+                                <i class="fas fa-heart is-size-1 has-text-black mt-2"></i>
+                                <span
+                                    class="is-size-6 has-text-white is-overlay is-flex is-align-items-center is-justify-content-center">167</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="px-6 mt-5">
+                    
+                    <div class="border border3"> <span class="ear">MEP's Earned</span></div>
+                    <button class="button is-rounded has-background-black is-white has-text-light mt-2">
+                        <span> <i class="fas fa-wave-square"></i> <span></span>000</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</body>
+
+</html>

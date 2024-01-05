@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Heart Rate Chart</title>
+    <!-- Include the Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Include the Chart.js annotation plugin -->
+
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/1.0.2/chartjs-plugin-annotation.min.js"></script>
+    <script src="path/to/chartjs-plugin-annotation/dist/chartjs-plugin-annotation.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="has-background-grey-light">
+
+    <div class="container py-5">
+        <div class="box has-background-grey-lighter graph">
+            <p class=" has-text-centered has-text-black has-text-weight-bold is-size-4 m-1">58 <sub>bpm</sub></p>
+            <p class=" has-text-centered has-text-black is-size-5 m-1">Passive Heart Rate</p>
+            <p class=" has-text-centered has-text-dark is-size-5">2:01 PM</p>
+            <canvas id="heartRateChart" width="190" height="70"></canvas>
+        </div>
+    </div>
+
+
+    <script>
+        // Sample heart rate data with corresponding timestamps
+        var heartRateData = [
+            { x: '12:00', y: 70 },
+            { x: '13:00', y: 80 },
+            { x: '14:00', y: 87 },
+            { x: '15:00', y: 71 },
+            { x: '16:00', y: 20 },
+            { x: '17:00', y: 23 },
+            { x: '18:00', y: 21 },
+            { x: '19:00', y: 35 },
+            { x: '20:00', y: 41 },
+            { x: '21:00', y: 50 },
+            { x: '22:00', y: 51 },
+            { x: '23:00', y: 64 },
+            { x: '24:00', y: 72 },
+            { x: '01:00', y: 65 },
+            { x: '02:00', y: 77 },
+        ];
+
+        // Get the chart canvas element
+        var ctx = document.getElementById('heartRateChart').getContext('2d');
+
+        // Create the line chart with time scale
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    label: '',
+                    data: heartRateData,
+                    backgroundColor: 'rgba(75, 232, 12, 0)',
+                    borderColor: 'white',
+                    borderWidth: 2,
+                    pointRadius: 2,
+                    pointHoverRadius: 8,
+                    fill: false,
+                    borderRadius: 5,
+                }]
+            },
+            options: {
+                scales: {
+                    x: [{
+                        type: 'time',
+                        time: {
+                            displayFormats: {
+                                hour: 'hA' // Format for displaying hours
+                            }
+                        }
+                    }],
+                    y: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                plugins: {
+                    annotation: {
+                        annotations: {
+                            line1: {
+                                type: 'line',
+                                yMin: 45,
+                                yMax: 45,
+                                borderColor: '#f14668',
+                                borderWidth: 1,
+                            },
+
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>
